@@ -21,7 +21,7 @@ Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
 Route::get('/home', function () {
     return view('home', ['title' => 'Home']);
 
-})->name('home');
+});
 
 Route::get('/blog', function () {
     return view('blog' , ['title' => 'Blog']);
@@ -39,8 +39,25 @@ Route::get('/contact', function () {
 });
 
 Route::get('/testing', function () {
-    return view('testing' , ['title' => 'Testing']);
+    return view('testing' , ['title' => 'Home Page']);
+
+})->name('home');
+
+Route::get('/registerStudent', function () {
+    return view('registerStudent' , ['title' => 'Register Student Page']);
 
 });
+
+Route::get('/student', function () {
+    return view('student' , ['title' => 'Student Information Page']);
+
+});
+
+Route::get('/generateReport', function () {
+    return view('generateReport' , ['title' => 'Student Information Page']);
+
+});
+
+
 
 

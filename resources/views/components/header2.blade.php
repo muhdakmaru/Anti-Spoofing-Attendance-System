@@ -5,7 +5,7 @@
                 </span>
 
         <div class="text logo-text">
-            <span class="name">Codinglab</span>
+            <span class="name">Akmaru</span>
             <span class="profession">Web developer</span>
         </div>
     </div>
