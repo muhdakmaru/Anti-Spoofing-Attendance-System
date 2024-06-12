@@ -40,11 +40,18 @@ class AuthManager extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
+            'lecturer_id' => 'required',
+            'phone_number' => 'required',
+            'department' => 'required',
+            'password' => 'required|min:2',
+
         ]);
 
         $data['name'] = $request->name;
         $data['email'] = $request->email;
+        $data['lecturer_id'] = $request->lecturer_id;
+        $data['phone_number'] = $request->required;
+        $data['department'] = $request->department;
         $data['password'] = Hash::make($request->password);
         $user = User::create($data);
 

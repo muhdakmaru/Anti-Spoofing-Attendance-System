@@ -26,6 +26,18 @@
                 <input type="text" class="form-control" name="name">
             </div>
             <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Lecturer ID</label>
+                <input type="lecturer_id" class="form-control" name="lecturer_id">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Phone Number</label>
+                <input type="phone_number" class="form-control" name="phone_number">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Department</label>
+                <input type="department" class="form-control" name="department">
+            </div>
+            <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email Address</label>
                 <input type="email" class="form-control" name="email">
             </div>

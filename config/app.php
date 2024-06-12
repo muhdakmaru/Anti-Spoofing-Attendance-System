@@ -1,4 +1,4 @@
-<?php
+php artisan vendor:publish --provider="Kreait\Laravel\Firebase\ServiceProvider" --tag=config<?php
 
 return [
 

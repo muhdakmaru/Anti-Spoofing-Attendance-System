@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Firebase\RegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthManager;
 
@@ -48,6 +49,8 @@ Route::get('/registerStudent', function () {
 
 });
 
+Route::post('registerStudent', [RegisterController::class, 'store']);
+
 Route::get('/student', function () {
     return view('student' , ['title' => 'Student Information Page']);
 
@@ -57,7 +60,6 @@ Route::get('/generateReport', function () {
     return view('generateReport' , ['title' => 'Student Information Page']);
 
 });
-
 
 
 
