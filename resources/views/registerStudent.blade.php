@@ -1,48 +1,56 @@
-@extends('layout')
+<x-layout xmlns:x-slot="http://www.w3.org/1999/xlink">
 
-@section('content')
-    <div class = "container">
-        <div class="mt-5">
-            @if($errors->any())
-                <div class="col-12">
-                    @foreach($errors->all() as $error)
-                        <div class="alert alert-danger">{{ $error }}</div>
-                    @endforeach
-                </div>
-            @endif
+    <x-slot:title>{{ $title }}</x-slot:title>
 
-            @if(session()->has('error'))
-                <div class="alert alert-danger">{{ session('error') }}</div>
-            @endif
+    <h3 class="text-xl">Register Student Page</h3>
 
-            @if(session()->has('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
-        </div>
-        <form action ="{{ url('/registerStudent') }}" method="POST" class="ms-auto me-auto mt3-auto" style="width: 500px">
+    <div class="alert-sucess">
+        @if($errors->any())
+            <div class="col-12">
+                @foreach($errors->all() as $error)
+                    <div class="alert alert-danger">{{ $error }}</div>
+                @endforeach
+            </div>
+        @endif
+
+        @if(session()->has('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
+
+        @if(session()->has('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+    </div>
+
+    <div><br></div>
+    <div class="wrapper">
+        <h2>Register Student</h2>
+
+            <form action="{{ url('/registerStudent') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Full Name</label>
-                <input type="text" class="form-control" name="name">
+            <div class="input-box">
+                <input type="text" name="name" placeholder="Enter student name" required>
             </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Major</label>
-                <input type="major" class="form-control" name="major">
+            <div class="input-box">
+                <input type="text" name="major" placeholder="Enter student major" required>
             </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Year</label>
-                <input type="year" class="form-control" name="year">
+            <div class="input-box">
+                <input type="text" name="year" placeholder="Enter student year" required>
             </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Starting Year</label>
-                <input type="starting_year" class="form-control" name="starting_year">
+            <div class="input-box">
+                <input type="text" name="starting_year" placeholder="Enter student starting year" required>
             </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email Address</label>
-                <input type="email" class="form-control" name="email">
+            <div class="input-box">
+                <input type="email" name="email" placeholder="Enter student email" required>
             </div>
-
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="policy">
+                <h3 class="text-xl">Upload Image</h3>
+                <input type="file" class="form-control" name="image" accept="image/*" required>
+            </div>
+            <div class="input-box button">
+                <input type="submit" value="Register Student">
+            </div>
         </form>
     </div>
-@endsection
+
+</x-layout>

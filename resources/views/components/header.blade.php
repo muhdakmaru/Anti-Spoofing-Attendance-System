@@ -1,5 +1,15 @@
-<header class="bg-white shadow">
-    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{$slot}}</h1>
+<header>
+    <div class="image-text">
+                <span class="image">
+                    <img src="frontend/assets/logo.png" alt="">
+                </span>
+
+        <div class="text logo-text">
+            <span class="name">Akmaru</span>
+            <span class="profession">Web developer</span>
+        </div>
     </div>
+
+
+    <i class='bx bx-chevron-right toggle'></i>
 </header>
