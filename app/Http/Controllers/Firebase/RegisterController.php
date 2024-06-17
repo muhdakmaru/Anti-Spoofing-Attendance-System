@@ -16,9 +16,15 @@ class RegisterController extends Controller
     public function __construct(Database $database, Storage $storage)
     {
         $this->database = $database;
+        $this->tablename = '';
         $this->storage = $storage;
     }
 
+    public function index()
+    {
+        $students = $this->database->getReference($this->tablename)->getValue();
+        return view('student', compact('students'));
+    }
     public function store(Request $request)
     {
         // Validate the request to ensure all required fields are present
@@ -38,7 +44,7 @@ class RegisterController extends Controller
             ->getSnapshot()
             ->exists();
 
-        if ($existingUser) {
+        if (!empty($existingUser)) {
             return redirect('/registerStudent')->with('error', 'A user with this email address already exists.');
         }
 

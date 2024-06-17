@@ -51,10 +51,15 @@ Route::get('/registerStudent', function () {
 
 Route::post('registerStudent', [RegisterController::class, 'store']);
 
+/*
 Route::get('/student', function () {
     return view('student' , ['title' => 'Student Information Page']);
 
 });
+
+*/
+
+Route::get('/student', [RegisterController::class, 'index']);
 
 Route::get('/generateReport', function () {
     return view('generateReport' , ['title' => 'Student Information Page']);
