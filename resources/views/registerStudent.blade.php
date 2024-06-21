@@ -31,6 +31,9 @@
             <div class="input-box">
                 <input type="text" name="name" placeholder="Enter student name" required>
             </div>
+                <div class="input-box">
+                    <input type="text" name="matric" placeholder="Enter student Matric Number" required>
+                </div>
             <div class="input-box">
                 <input type="text" name="major" placeholder="Enter student major" required>
             </div>
@@ -50,6 +53,7 @@
             <div class="input-box button">
                 <input type="submit" value="Register Student">
             </div>
+
         </form>
     </div>
 

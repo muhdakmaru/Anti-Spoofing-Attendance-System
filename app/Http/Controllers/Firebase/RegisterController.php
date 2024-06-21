@@ -30,6 +30,7 @@ class RegisterController extends Controller
         // Validate the request to ensure all required fields are present
         $request->validate([
             'name' => 'required|string|max:255',
+            'matric' => 'required|string|max:255',
             'major' => 'required|string|max:255',
             'year' => 'required|string|max:255',
             'starting_year' => 'required|string|max:255',
@@ -43,10 +44,11 @@ class RegisterController extends Controller
             ->equalTo($request->email)
             ->getSnapshot()
             ->exists();
-
+/*
         if (!empty($existingUser)) {
             return redirect('/registerStudent')->with('error', 'A user with this email address already exists.');
         }
+*/
 
         // Generate a 6-digit random number and ensure it's unique
         do {
@@ -60,6 +62,7 @@ class RegisterController extends Controller
 
         $postData = [
             'name' => $request->name,
+            'matric' => $request->matric,
             'major' => $request->major,
             'year' => $request->year,
             'starting_year' => $request->starting_year,
@@ -92,6 +95,71 @@ class RegisterController extends Controller
             return redirect('/home')->with('success', 'Registration Successful');
         } else {
             return redirect('/registerStudent')->with('error', 'Registration Failed');
+        }
+    }
+
+    public function edit($id)
+    {
+        $student = $this->database->getReference($this->tablename)->getChild($id)->getValue();
+        if ($student) {
+            return view('editStudent', compact('student', 'id'));
+        }
+        return redirect('student')->with('status', 'Student not found');
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Validate the request to ensure all required fields are present
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'matric' => 'required|string|max:255',
+            'major' => 'required|string|max:255',
+            'year' => 'required|string|max:255',
+            'starting_year' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+        ]);
+
+        $postData = [
+            'name' => $request->name,
+            'matric' => $request->matric,
+            'major' => $request->major,
+            'year' => $request->year,
+            'starting_year' => $request->starting_year,
+            'email' => $request->email,
+        ];
+
+        // Handle image update
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filePath = "Images/{$id}." . $file->getClientOriginalExtension();
+            $this->storage->getBucket()->upload(
+                file_get_contents($file->getRealPath()),
+                [
+                    'name' => $filePath
+                ]
+            );
+
+            // Add the image URL to the postData
+            $imageReference = $this->storage->getBucket()->object($filePath);
+            $postData['image_url'] = $imageReference->signedUrl(new \DateTime('2099-12-31')); // URL valid until 2099
+        }
+
+        $this->database->getReference($this->tablename)->getChild($id)->update($postData);
+
+        return redirect('student')->with('status', 'Student updated successfully');
+    }
+
+    public function delete($id)
+    {
+        $key = $id;
+        $del_data = $this->database->getReference($this->tablename.'/'.$key)->remove();
+        if($del_data)
+        {
+            return redirect('student')->with('status', 'Student deleted successfully');
+        }
+        else
+        {
+            return redirect('student')->with('status', 'Student Failed to delete');
         }
     }
 }

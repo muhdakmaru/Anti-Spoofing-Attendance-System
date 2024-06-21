@@ -40,7 +40,7 @@
                                     </div>
                                     <div>
                                         <p class="font-semibold text-black">{{ $student['name'] }}</p>
-                                        <p class="text-xs text-gray-600">Developer</p>
+                                        <p class="text-xs text-gray-600">{{ $student['matric'] }}</p>
                                     </div>
                                 </div>
                             </td>
@@ -63,8 +63,10 @@
                                 <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm">{{ $student['last_attendance_time'] }}</span>
                             </td>
                             <td class="px-4 py-3 text-xs border">
-                                <a href="{{ url('/students/edit', $id) }}" class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm">Edit</a>
-                                <a href="{{ url('/students/delete', $id) }}" class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm">Delete</a>
+                                <a href="{{ url('/editStudent', $id) }}" class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm">Edit</a>
+                                <a href="{{ url('/deleteStudent', $id) }}" class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm">Delete</a>
+
+
                             </td>
                         </tr>
                     @empty
