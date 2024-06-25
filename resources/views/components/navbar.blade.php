@@ -10,58 +10,69 @@
                 <input type="text" placeholder="Search...">
             </li>
 
-            <li class="nav-link">
-                <x-nav-link href="/home" :active="request()->is('/')">
-                    <i class='bx bx-home-alt icon' ></i>
-                    <span class="text nav-text">Home Page</span>
-                </x-nav-link>
-            </li>
+            <!--
+                        <li class="nav-link">
+                            <x-nav-link href="/home" :active="request()->is('/')">
+                                <i class='bx bx-home-alt icon' ></i>
+                                <span class="text nav-text">Home Page</span>
+                            </x-nav-link>
+                        </li>
 
-            <li class="nav-link">
-                <x-nav-link href="/registerStudent" :active="request()->is('/')">
-                    <i class='bx bx-bell icon'></i>
-                    <span class="text nav-text">Register Student</span>
-                </x-nav-link>
-            </li>
+            -->
 
-            <li class="nav-link">
-                <x-nav-link href="/student" :active="request()->is('/')">
-                    <i class='bx bx-box icon' ></i>
-                    <span class="text nav-text">Students</span>
-                </x-nav-link>
-            </li>
+                        <li class="nav-link">
+                            <x-nav-link href="/student" :active="request()->is('/')">
+                                <i class='bx bx-home-alt icon' ></i>
+                                <span class="text nav-text">Home Page</span>
+                            </x-nav-link>
+                        </li>
 
-            <li class="nav-link">
-                <x-nav-link href="/generateReport" :active="request()->is('/')">
-                    <i class='bx bx-bar-chart-alt-2 icon' ></i>
-                    <span class="text nav-text">Generate Report</span>
-                </x-nav-link>
-            </li>
+                        <li class="nav-link">
+                            <x-nav-link href="/registerStudent" :active="request()->is('/')">
+                                <!--<i class='bx bx-bell icon'></i>-->
+                                <i class='bx bx-box icon' ></i>
+                                <span class="text nav-text">Register Student</span>
+                            </x-nav-link>
+                        </li>
 
-            </ul>
-        </div>
+                        <li class="nav-link">
+                            <x-nav-link href="/student" :active="request()->is('/')">
+                                <i class='bx bx-bell icon'></i>
+                                <span class="text nav-text">Students</span>
+                            </x-nav-link>
+                        </li>
 
-        <div class="bottom-content">
-            <li class="">
-                <x-nav-link href="/logout" :active="request()->is('/')">
-                    <i class='bx bx-log-out icon' ></i>
-                    <span class="text nav-text">Logout</span>
-                </x-nav-link>
-            </li>
+                        <li class="nav-link">
+                            <x-nav-link href="/viewLecturer" :active="request()->is('/')">
+                                <i class='bx bx-bar-chart-alt-2 icon' ></i>
+                                <span class="text nav-text">Edit Profile</span>
+                            </x-nav-link>
+                        </li>
 
-            <li class="mode">
-                <div class="sun-moon">
-                    <i class='bx bx-moon icon moon'></i>
-                    <i class='bx bx-sun icon sun'></i>
+                        </ul>
+                    </div>
+
+                    <div class="bottom-content">
+                        <li class="">
+                            <x-nav-link href="/logout" :active="request()->is('/')">
+                                <i class='bx bx-log-out icon' ></i>
+                                <span class="text nav-text">Logout</span>
+                            </x-nav-link>
+                        </li>
+
+                        <li class="mode">
+                            <div class="sun-moon">
+                                <i class='bx bx-moon icon moon'></i>
+                                <i class='bx bx-sun icon sun'></i>
+                            </div>
+                            <span class="mode-text text">Dark mode</span>
+
+                            <div class="toggle-switch">
+                                <span class="switch"></span>
+                            </div>
+                        </li>
+
+                    </div>
                 </div>
-                <span class="mode-text text">Dark mode</span>
 
-                <div class="toggle-switch">
-                    <span class="switch"></span>
-                </div>
-            </li>
-
-        </div>
-    </div>
-
-</nav>
+            </nav>

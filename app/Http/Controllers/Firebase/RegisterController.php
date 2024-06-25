@@ -11,18 +11,20 @@ class RegisterController extends Controller
 {
     protected $database;
     protected $storage;
-    protected $tablename = 'Students';
+    protected $tablename = '';
 
     public function __construct(Database $database, Storage $storage)
     {
         $this->database = $database;
-        $this->tablename = '';
+        $this->tablename = '/';
+        $this->tablename2 = '/';
         $this->storage = $storage;
     }
 
     public function index()
     {
         $students = $this->database->getReference($this->tablename)->getValue();
+
         return view('student', compact('students'));
     }
     public function store(Request $request)
@@ -32,6 +34,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'matric' => 'required|string|max:255',
             'major' => 'required|string|max:255',
+            'class' => 'required|string|max:255',
             'year' => 'required|string|max:255',
             'starting_year' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
@@ -44,11 +47,11 @@ class RegisterController extends Controller
             ->equalTo($request->email)
             ->getSnapshot()
             ->exists();
-/*
-        if (!empty($existingUser)) {
-            return redirect('/registerStudent')->with('error', 'A user with this email address already exists.');
-        }
-*/
+        /*
+                if (!empty($existingUser)) {
+                    return redirect('/registerStudent')->with('error', 'A user with this email address already exists.');
+                }
+        */
 
         // Generate a 6-digit random number and ensure it's unique
         do {
@@ -64,6 +67,7 @@ class RegisterController extends Controller
             'name' => $request->name,
             'matric' => $request->matric,
             'major' => $request->major,
+            'class' => $request->class,
             'year' => $request->year,
             'starting_year' => $request->starting_year,
             'email' => $request->email,
@@ -92,7 +96,7 @@ class RegisterController extends Controller
         $ref->set($postData);
 
         if ($ref) {
-            return redirect('/home')->with('success', 'Registration Successful');
+            return redirect('/student')->with('success', 'Registration Successful');
         } else {
             return redirect('/registerStudent')->with('error', 'Registration Failed');
         }
@@ -100,7 +104,7 @@ class RegisterController extends Controller
 
     public function edit($id)
     {
-        $student = $this->database->getReference($this->tablename)->getChild($id)->getValue();
+        $student = $this->database->getReference($this->tablename2)->getChild($id)->getValue();
         if ($student) {
             return view('editStudent', compact('student', 'id'));
         }
@@ -153,13 +157,13 @@ class RegisterController extends Controller
     {
         $key = $id;
         $del_data = $this->database->getReference($this->tablename.'/'.$key)->remove();
-        if($del_data)
+        if ($del_data)
         {
             return redirect('student')->with('status', 'Student deleted successfully');
         }
         else
         {
-            return redirect('student')->with('status', 'Student Failed to delete');
+            return redirect('student')->with('status', 'Student cannot be deleted');
         }
     }
 }

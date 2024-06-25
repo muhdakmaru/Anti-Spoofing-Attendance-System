@@ -17,27 +17,18 @@ Route::get('/registration', [AuthManager::class, 'registration'])->name('registr
 Route::post('/registration', [AuthManager::class, 'registrationPost'])->name('registration.post');
 Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
 
+Route::middleware(['auth'])->group(function () {
+    
+    Route::post('/updateProfile', [AuthManager::class, 'updateProfile'])->name('updateProfile');
+});
+
 //Home Page
 
-Route::get('/home', function () {
-    return view('home', ['title' => 'Home']);
+Route::get('/viewLecturer', function () {
+    return view('viewLecturer', ['title' => 'Lecturer Profile']);
 
-})->name('home');
+})->name('viewLecturer');
 
-Route::get('/blog', function () {
-    return view('blog' , ['title' => 'Blog']);
-
-});
-
-Route::get('/about', function () {
-    return view('about' , ['title' => 'About']);
-
-});
-
-Route::get('/contact', function () {
-    return view('contact' , ['title' => 'Contact']);
-
-});
 
 Route::get('/registerStudent', function () {
     return view('registerStudent' , ['title' => 'Register Student Page']);

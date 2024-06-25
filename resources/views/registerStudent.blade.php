@@ -37,6 +37,9 @@
             <div class="input-box">
                 <input type="text" name="major" placeholder="Enter student major" required>
             </div>
+                <div class="input-box">
+                    <input type="text" name="class" placeholder="Enter student class" required>
+                </div>
             <div class="input-box">
                 <input type="text" name="year" placeholder="Enter student year" required>
             </div>

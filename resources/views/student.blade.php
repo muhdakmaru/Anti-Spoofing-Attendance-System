@@ -10,8 +10,14 @@
     <section class="container mx-auto p-6 font-mono">
         <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
             <div class="w-full overflow-x-auto">
-                <!-- Search Bar -->
+                <!-- Class Selection Dropdown -->
                 <div class="flex justify-end mb-4">
+                    <select id="classFilter" class="px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 mr-4">
+                        <option value="All">All Classes</option>
+                        <option value="SECJH">SECJH</option>
+                        <option value="SECVH">SECVH</option>
+                    </select>
+                    <!-- Search Bar -->
                     <input type="text" id="search" class="px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-200" placeholder="Search...">
                 </div>
                 <table class="w-full">
@@ -25,12 +31,13 @@
                         <th class="px-4 py-3">Total Attendance</th>
                         <th class="px-4 py-3">Standing</th>
                         <th class="px-4 py-3">Last Attendance Time</th>
+                        <th class="px-4 py-3">Class</th>
                         <th class="px-4 py-3">Action</th>
                     </tr>
                     </thead>
                     <tbody class="bg-white" id="studentTable">
                     @forelse($students as $id => $student)
-                        <tr class="text-gray-700">
+                        <tr class="text-gray-700" data-class="{{ $student['class'] ?? '' }}">
                             <td class="px-4 py-3 text-ms font-semibold border">{{ $id }}</td>
                             <td class="px-4 py-3 border">
                                 <div class="flex items-center text-sm">
@@ -63,15 +70,16 @@
                                 <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm">{{ $student['last_attendance_time'] }}</span>
                             </td>
                             <td class="px-4 py-3 text-xs border">
+                                <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm">{{ $student['class'] ?? '' }}</span>
+                            </td>
+                            <td class="px-4 py-3 text-xs border">
                                 <a href="{{ url('/editStudent', $id) }}" class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm">Edit</a>
                                 <a href="{{ url('/deleteStudent', $id) }}" class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm">Delete</a>
-
-
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9" class="text-center py-4">No students found</td>
+                            <td colspan="10" class="text-center py-4">No students found</td>
                         </tr>
                     @endforelse
                     </tbody>
@@ -81,23 +89,39 @@
     </section>
 
     <script>
-        document.getElementById('search').addEventListener('keyup', function() {
-            let filter = this.value.toUpperCase();
+        function filterStudents() {
+            let filterClass = document.getElementById('classFilter').value.toUpperCase();
+            let filterSearch = document.getElementById('search').value.toUpperCase();
             let rows = document.getElementById('studentTable').getElementsByTagName('tr');
+
+            let found = false;
             for (let i = 0; i < rows.length; i++) {
-                let td = rows[i].getElementsByTagName('td');
+                let rowClass = rows[i].getAttribute('data-class').toUpperCase();
                 let textValue = '';
+                let td = rows[i].getElementsByTagName('td');
+
                 for (let j = 0; j < td.length; j++) {
                     if (td[j]) {
                         textValue += td[j].textContent || td[j].innerText;
                     }
                 }
-                if (textValue.toUpperCase().indexOf(filter) > -1) {
+
+                if ((filterClass === 'ALL' || rowClass === filterClass) && textValue.toUpperCase().indexOf(filterSearch) > -1) {
                     rows[i].style.display = '';
+                    found = true;
                 } else {
                     rows[i].style.display = 'none';
                 }
             }
-        });
+
+            if (!found) {
+                document.getElementById('noStudentsFound').style.display = 'table-row';
+            } else {
+                document.getElementById('noStudentsFound').style.display = 'none';
+            }
+        }
+
+        document.getElementById('search').addEventListener('keyup', filterStudents);
+        document.getElementById('classFilter').addEventListener('change', filterStudents);
     </script>
 </x-layout>
