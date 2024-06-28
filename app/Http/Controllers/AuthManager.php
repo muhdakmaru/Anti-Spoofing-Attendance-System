@@ -23,43 +23,30 @@ class AuthManager extends Controller
         ]);
 
         $credentials = $request->only('email', 'password');
+
+        $email = $request->input('email');
+        $password = $request->input('password');
+
         if (Auth::attempt($credentials))
         {
             return redirect()->intended(route('viewLecturer'));
         }
-        return redirect(route('login'))->with("error", "Login Details not Valid");
+        else if ($email == "admin@admin" && $password == "admin")
+        {
+            return redirect()->intended(route('admin'));
+        }
+        else
+        {
+            return redirect(route('login'))->with("error", "Login Details not Valid");
+        }
+
+
+
     }
 
     function registration()
     {
         return view('registration');
-    }
-
-    function registrationPost(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'lecturer_id' => 'required',
-            'phone_number' => 'required',
-            'department' => 'required',
-            'password' => 'required|min:2',
-
-        ]);
-
-        $data['name'] = $request->name;
-        $data['email'] = $request->email;
-        $data['lecturer_id'] = $request->lecturer_id;
-        $data['phone_number'] = $request->required;
-        $data['department'] = $request->department;
-        $data['password'] = Hash::make($request->password);
-        $user = User::create($data);
-
-        if (!$user)
-        {
-            return redirect(route('registration'))->with('fail', 'Something went wrong');
-        }
-        return redirect(route('login'))->with('success', 'You have successfully registered');
     }
 
     function logout(){

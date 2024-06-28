@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\adminController;
 use App\Http\Controllers\Firebase\RegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthManager;
@@ -18,7 +19,7 @@ Route::post('/registration', [AuthManager::class, 'registrationPost'])->name('re
 Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
-    
+
     Route::post('/updateProfile', [AuthManager::class, 'updateProfile'])->name('updateProfile');
 });
 
@@ -58,4 +59,20 @@ Route::post('/updateStudent/{id}', [RegisterController::class, 'update']);
 
 Route::get('/deleteStudent/{id}', [RegisterController::class, 'delete']);
 
+
+//Admin
+
+Route::get('/admin', function () {
+    return view('admin');
+
+})->name('admin');
+
+Route::get('/registerLecturer', function () {
+    return view('registerLecturer');
+
+})->name('registerLecturer');
+
+Route::post('/registerLecturer', [adminController::class, 'registerLecturer'])->name('registerLecturer.post');
+
+Route::get('/lecturer', [adminController::class, 'index'])->name('lecturer');
 
