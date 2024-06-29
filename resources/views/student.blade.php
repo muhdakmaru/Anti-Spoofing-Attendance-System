@@ -46,7 +46,7 @@
                                         <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
                                     </div>
                                     <div>
-                                        <p class="font-semibold text-black">{{ $student['name'] }}</p>
+                                        <p class="font-semibold text-black">{{ $student['name'] ?? 'default_image_url' }}</p>
                                         <p class="text-xs text-gray-600">{{ $student['matric'] }}</p>
                                     </div>
                                 </div>

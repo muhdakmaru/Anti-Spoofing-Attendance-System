@@ -42,9 +42,37 @@ class adminController extends Controller
 
     }
 
-    public function index()
+    public function getLecturers()
     {
-        return view ('lecturer');
+        $users = User::all();
+        return view('lecturer', compact('users'));
+    }
+
+    public function editUserForm($id)
+    {
+        $user = User::find($id);
+        return view('editLecturer', compact('user'));
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->name = $request->input('name');
+        $user->lecturer_id = $request->input('lecturer_id');
+        $user->phone_number = $request->input('phone_number');
+        $user->department = $request->input('department');
+        $user->email = $request->input('email');
+        $user->save();
+
+        return redirect('/lecturer')->with('success', 'User updated successfully');
+    }
+
+    public function deleteUser($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+
+        return redirect('/lecturer')->with('success', 'User deleted successfully');
     }
 
 }

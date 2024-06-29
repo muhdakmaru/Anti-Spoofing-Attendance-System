@@ -14,7 +14,7 @@
                         </li>
 
                         <li class="nav-link">
-                            <x-nav-link href="/registerLecturer" :active="request()->is('/')">
+                            <x-nav-link href="/lecturer" :active="request()->is('/')">
                                 <i class='bx bx-bar-chart-alt-2 icon' ></i>
                                 <span class="text nav-text">Edit Profile</span>
                             </x-nav-link>

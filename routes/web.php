@@ -74,5 +74,11 @@ Route::get('/registerLecturer', function () {
 
 Route::post('/registerLecturer', [adminController::class, 'registerLecturer'])->name('registerLecturer.post');
 
-Route::get('/lecturer', [adminController::class, 'index'])->name('lecturer');
+Route::get('/lecturer', [adminController::class, 'getLecturers'])->name('lecturer');
+
+Route::get('/editUser/{id}', [adminController::class, 'editUserForm']);
+
+Route::post('/editUser/{id}', [adminController::class, 'updateUser']);
+
+Route::delete('/deleteUser/{id}', [adminController::class, 'deleteUser']);
 

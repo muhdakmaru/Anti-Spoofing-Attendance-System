@@ -1,5 +1,7 @@
+<!-- resources/views/lecturer.blade.php -->
+
 <x-adminLayout xmlns:x-slot="http://www.w3.org/1999/xlink">
-    <h3 class="text-xl">Student Information Page</h3>
+    <h3 class="text-xl">User Information Page</h3>
 
     <br>
 
@@ -10,14 +12,8 @@
     <section class="container mx-auto p-6 font-mono">
         <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
             <div class="w-full overflow-x-auto">
-                <!-- Class Selection Dropdown -->
+                <!-- Search Bar -->
                 <div class="flex justify-end mb-4">
-                    <select id="classFilter" class="px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 mr-4">
-                        <option value="All">All Classes</option>
-                        <option value="SECJH">SECJH</option>
-                        <option value="SECVH">SECVH</option>
-                    </select>
-                    <!-- Search Bar -->
                     <input type="text" id="search" class="px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-200" placeholder="Search...">
                 </div>
                 <table class="w-full">
@@ -25,59 +21,40 @@
                     <tr style="text-align: center" class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
                         <th class="px-4 py-3">ID</th>
                         <th class="px-4 py-3">Name</th>
-                        <th class="px-4 py-3">Major</th>
-                        <th class="px-4 py-3">Year</th>
-                        <th class="px-4 py-3">Starting Year</th>
-                        <th class="px-4 py-3">Total Attendance</th>
-                        <th class="px-4 py-3">Standing</th>
-                        <th class="px-4 py-3">Last Attendance Time</th>
-                        <th class="px-4 py-3">Class</th>
+                        <th class="px-4 py-3">Lecturer ID</th>
+                        <th class="px-4 py-3">Phone Number</th>
+                        <th class="px-4 py-3">Department</th>
+                        <th class="px-4 py-3">Email</th>
+                        <th class="px-4 py-3">Created At</th>
                         <th class="px-4 py-3">Action</th>
                     </tr>
                     </thead>
-                    <tbody class="bg-white" id="studentTable">
-
-                        <tr class="text-gray-700" data-class="">
-                            <td class="px-4 py-3 text-ms font-semibold border"></td>
+                    <tbody class="bg-white" id="userTable">
+                    @foreach($users as $user)
+                        <tr class="text-gray-700">
+                            <td class="px-4 py-3 text-ms font-semibold border">{{ $user->id }}</td>
                             <td class="px-4 py-3 border">
                                 <div class="flex items-center text-sm">
                                     <div>
-                                        <p class="font-semibold text-black">akmal</p>
-                                        <p class="text-xs text-gray-600">B22EC0030</p>
+                                        <p class="font-semibold text-black">{{ $user->name }}</p>
                                     </div>
                                 </div>
                             </td>
+                            <td class="px-4 py-3 text-xs border">{{ $user->lecturer_id }}</td>
+                            <td class="px-4 py-3 text-xs border">{{ $user->phone_number }}</td>
+                            <td class="px-4 py-3 text-xs border">{{ $user->department }}</td>
+                            <td class="px-4 py-3 text-xs border">{{ $user->email }}</td>
+                            <td class="px-4 py-3 text-xs border">{{ $user->created_at }}</td>
                             <td class="px-4 py-3 text-xs border">
-                                <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm">FE</span>
-                            </td>
-                            <td class="px-4 py-3 text-xs border">
-                                <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm">2</span>
-                            </td>
-                            <td class="px-4 py-3 text-xs border">
-                                <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm">2023</span>
-                            </td>
-                            <td class="px-4 py-3 text-xs border">
-                                <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm">TOTAL ATTENDANCE</span>
-                            </td>
-                            <td class="px-4 py-3 text-xs border">
-                                <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm">STANDING</span>
-                            </td>
-                            <td class="px-4 py-3 text-xs border">
-                                <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm">ATTENDANCE TIME</span>
-                            </td>
-                            <td class="px-4 py-3 text-xs border">
-                                <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm">CLASS</span>
-                            </td>
-                            <td class="px-4 py-3 text-xs border">
-                                <a href="" class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm">Edit</a>
-                                <a href="" class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm">Delete</a>
+                                <a href="{{ url('/editUser', $user->id) }}" class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm">Edit</a>
+                                <form action="{{ url('/deleteUser', $user->id) }}" method="POST" style="display:inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-sm">Delete</button>
+                                </form>
                             </td>
                         </tr>
-
-                        <tr>
-                            <td colspan="10" class="text-center py-4">No students found</td>
-                        </tr>
-                    
+                    @endforeach
                     </tbody>
                 </table>
             </div>
@@ -85,14 +62,12 @@
     </section>
 
     <script>
-        function filterStudents() {
-            let filterClass = document.getElementById('classFilter').value.toUpperCase();
+        function filterUsers() {
             let filterSearch = document.getElementById('search').value.toUpperCase();
-            let rows = document.getElementById('studentTable').getElementsByTagName('tr');
+            let rows = document.getElementById('userTable').getElementsByTagName('tr');
 
             let found = false;
             for (let i = 0; i < rows.length; i++) {
-                let rowClass = rows[i].getAttribute('data-class').toUpperCase();
                 let textValue = '';
                 let td = rows[i].getElementsByTagName('td');
 
@@ -102,7 +77,7 @@
                     }
                 }
 
-                if ((filterClass === 'ALL' || rowClass === filterClass) && textValue.toUpperCase().indexOf(filterSearch) > -1) {
+                if (textValue.toUpperCase().indexOf(filterSearch) > -1) {
                     rows[i].style.display = '';
                     found = true;
                 } else {
@@ -111,13 +86,12 @@
             }
 
             if (!found) {
-                document.getElementById('noStudentsFound').style.display = 'table-row';
+                document.getElementById('noUsersFound').style.display = 'table-row';
             } else {
-                document.getElementById('noStudentsFound').style.display = 'none';
+                document.getElementById('noUsersFound').style.display = 'none';
             }
         }
 
-        document.getElementById('search').addEventListener('keyup', filterStudents);
-        document.getElementById('classFilter').addEventListener('change', filterStudents);
+        document.getElementById('search').addEventListener('keyup', filterUsers);
     </script>
 </x-adminLayout>
